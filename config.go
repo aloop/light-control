@@ -43,6 +43,7 @@ func (c *Config) Load(path string) {
 			c.CheckConfig()
 			return
 		}
+
 		log.Fatal(err)
 	}
 

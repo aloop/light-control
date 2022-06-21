@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 )
 
@@ -14,6 +13,9 @@ var (
 )
 
 func main() {
+	// We don't need timestamps for logs, this isn't a long running program.
+	log.SetFlags(0)
+
 	var (
 		configFilePath string
 		entityId       string
@@ -56,8 +58,7 @@ func main() {
 			amount, err := strconv.ParseInt(brightnessValue, 10, 0)
 
 			if err != nil {
-				fmt.Println("Invalid brightness value, must be an integer of the format +0, 0, or -0")
-				log.Fatal(err)
+				log.Fatal("Invalid brightness value, must be an integer of the format +0, 0, or -0")
 			}
 
 			// If the first character is not a + or -, set an absolute value
@@ -72,8 +73,7 @@ func main() {
 					lowerBound = 0
 				}
 
-				fmt.Printf("Brightness value out-of-bounds, must be an integer between %d to 100", lowerBound)
-				os.Exit(1)
+				log.Fatalf("Brightness value out-of-bounds, must be an integer between %d to 100", lowerBound)
 			}
 
 			light.AlterBrightness(amount, absolute)
