@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -49,7 +49,7 @@ func (c *Config) Load(path string) {
 
 	defer jsonFile.Close()
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+	byteValue, _ := io.ReadAll(jsonFile)
 
 	clone := c.API
 
